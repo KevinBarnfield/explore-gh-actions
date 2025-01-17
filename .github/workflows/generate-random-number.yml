@@ -1,0 +1,33 @@
+name: Generate Random Number
+
+on: 
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  generate-random-number:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+
+    - name: Run random_number.py
+      run: |
+        python random_number.py
+
+    - name: Upload random_number.txt artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: random-number
+        path: random_number.txt
